@@ -16,10 +16,16 @@ const urlDatabase = {
 };
 
 const bodyParser = require("body-parser");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/urls", (req, res) => {
-  const templateVars = { urls: urlDatabase };
+
+  const templateVars = {
+    urls: urlDatabase,
+    // shortURL: req.params.shortURL
+  };
+  console.log("shortURL::1::", templateVars)
   res.render('urls_index', templateVars);
 });
 
@@ -28,7 +34,12 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls/:shortURL", (req, res) => {
-  const templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase };
+  const shortURL = req.params.shortURL;
+  console.log("shortURL::2::", templateVars)
+  const templateVars = {
+    shortURL: shortURL,
+    longURL: urlDatabase
+  };
   res.render('urls_show', templateVars);
 });
 
@@ -54,6 +65,13 @@ app.post("/urls", (req, res) => {
 app.get("/u/:shortURL", (req, res) => {
   const longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
+});
+
+app.post("/urls/:shortURL/delete", (req, res) => {
+  const shortURL = req.params.shortURL;
+  console.log("shortURL::3::", shortURL);
+  delete urlDatabase[shortURL]
+  res.redirect('/urls')
 });
 
 app.listen(PORT, () => {
