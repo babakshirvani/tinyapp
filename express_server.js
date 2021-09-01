@@ -1,8 +1,12 @@
 const express = require('express');
+const cookieParser = require('cookie-parser')
+const bodyParser = require("body-parser");
 const app = express();
 const PORT = 8080;
 
 app.set("view engine", "ejs");
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }));
 
 function generateRandomString() {
   const result = Math.random().toString(36).substring(2, 8);
@@ -11,13 +15,11 @@ function generateRandomString() {
 };
 
 const urlDatabase = {
-  "b2xVn2": "http://www.lighthouselab.ca",
+  "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
 
-const bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/urls", (req, res) => {
 
@@ -70,13 +72,21 @@ app.post("/urls/:shortURL", (req, res) => {
   res.redirect(`/urls/${shortURL}`)
 });
 
-
 //Delete URL
 app.post("/urls/:shortURL/delete", (req, res) => {
   const shortURL = req.params.shortURL;
   delete urlDatabase[shortURL]
   res.redirect('/urls')
 });
+
+// login
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  res.cookie('username', username);
+  res.redirect('/urls');
+
+});
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
