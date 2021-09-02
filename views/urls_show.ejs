@@ -26,7 +26,7 @@
         <form
           class="form-inline justify-content-center"
           method="POST"
-          action="/urls/<%= shortURL %>"
+          action="/urls/<%= shortURL %>/edit"
         >
           <div class="form-group mb-2">
             <label for="updateURL">New URL:</label>
@@ -34,10 +34,10 @@
               class="form-control"
               name="updateURL"
               type="text"
-              value="<%= longURL %>"
+              value="<%= longURL%>"
               style="width: 300px; margin: 1em"
             />
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
           </div>
         </form>
       </div>

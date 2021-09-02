@@ -19,13 +19,7 @@
       <form action="/register" method="POST">
         <h1>Create Account</h1>
         <div class="form-group">
-
-          <% if (emailCheck) {%>
-          <div class="alert alert-danger" role="alert">
-            This email address already registered
-          </div>
-          <% } %>
-
+          
           <label for="exampleInputEmail1" style="width: 300px; margin-top: 1em; margin-bottom: 1px; margin-left: 1em;">Email address</label>
           <input
             type="email"
