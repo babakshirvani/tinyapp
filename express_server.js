@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
+const { getUserByEmail, generateRandomString } = require('./helpers')
 const app = express();
 const PORT = 8080;
 
@@ -12,21 +13,6 @@ app.use(morgan('dev'));
 // app.use(cookieParser());
 app.use(cookieSession({ name: 'session', keys: ['my secret key', 'another secret key'] }));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const generateRandomString = function() {
-  const result = Math.random().toString(36).substring(2, 8);
-  return result;
-};
-
-const findEmail = function(email) {
-  for (const id in users) {
-    if (email === users[id].email) {
-      let user = users[id]
-      return user
-    }
-  }
-  return false
-};
 
 const urlDatabase = {
   b6UTxQ: {
@@ -52,7 +38,7 @@ const users = {
   },
   "123asdd": {
     id: "123asdd",
-    email: "babak@gmail.com",
+    email: "babak1@gmail.com",
     password: "123456"
   },
   "323s3s": {
@@ -184,7 +170,7 @@ app.post("/register", (req, res) => {
   const userID = generateRandomString();
   const email = req.body.email;
   const password = req.body.password;
-  const emailCheck = findEmail(email)
+  const emailCheck = getUserByEmail(email, users)
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   if (email && password && !emailCheck) {
@@ -223,7 +209,7 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  const emailCheck = findEmail(email)
+  const emailCheck = getUserByEmail(email, users)
   if (email === emailCheck.email && bcrypt.compareSync(password, emailCheck.password)) {
     const userID = emailCheck.id
     // res.cookie('user_id', userID)
