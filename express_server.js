@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser')
 const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt');
 const app = express();
 const PORT = 8080;
 
@@ -180,8 +181,13 @@ app.post("/register", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const emailCheck = findEmail(email)
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  console.log("hashedPassword:", hashedPassword)
+  console.log("password:", password)
+  console.log("users before", users)
   if (email && password && !emailCheck) {
-    users[userID] = { id: userID, email: email, password: password };
+    users[userID] = { id: userID, email: email, password: hashedPassword };
+    console.log("users after", users)
     res.cookie('user_id', userID);
     res.redirect('/');
   }
@@ -214,7 +220,7 @@ app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const emailCheck = findEmail(email)
-  if (email === emailCheck.email && password === emailCheck.password) {
+  if (email === emailCheck.email && bcrypt.compareSync(password, emailCheck.password)) {
     const userID = emailCheck.id
     res.cookie('user_id', userID)
     res.redirect('/urls')
