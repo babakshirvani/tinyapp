@@ -171,13 +171,13 @@ app.post("/urls/:shortURL/delete", (req, res) => {
     res.render('error', errorMsg);
     return;
   }
+  const shortURL = req.params.shortURL;
   if (users[req.session.user_id].id !== urlDatabase[shortURL].userID) {
     const errorMsg = { message: 'This is not your short URL, you dont have permission to delete!', code: 403 };
     res.status(403);
     res.render('error', errorMsg);
     return;
   }
-  const shortURL = req.params.shortURL;
   delete urlDatabase[shortURL];
   res.redirect('/urls');
 });
@@ -214,6 +214,12 @@ app.post("/login", (req, res) => {
   const password = req.body.password;
   const userExist = getUserByEmail(email, users);
 
+  if (email === "") {
+    const errorMsg = { message: 'Email field or Password is empty, Try again!!', code: 400 };
+    res.status(400);
+    res.render('error', errorMsg);
+    return;
+  }
   if (userExist === undefined) {
     const errorMsg = { message: 'Email not found, Please try again or Register.', code: 403 };
     res.status(403);

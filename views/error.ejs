@@ -33,10 +33,24 @@
             <a class="nav-item nav-link" href="/urls">My URLs</a>
             <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
           </div>
+          
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/login">Login</a>
-            <a class="nav-item nav-link" href="/register">Register</a>
-        </div>
+            <form
+            class="form-inline align-items-baseline"
+            action="/login"
+            method="GET"
+          >
+            <button type="submit" class="btn btn-outline-light" style="margin-right: 5px;">Login</button>
+            </form>
+            <form
+            class="form-inline align-items-baseline"
+            action="/register"
+            method="GET"
+          >
+            <button type="submit" class="btn btn-outline-light">Register</button>
+            </form>
+            </div>
+          
         </div>
       </main>
       </nav>
@@ -44,8 +58,11 @@
     <div class="card text-center">
       <div class="card-header"></div>
       <div class="card-body">
-        <h1 class="card-title">Error <%= code%></h1>
-        <h5><%=message%></h5>
+        <div class="alert alert-danger" role="alert">
+          <h1 class="alert-heading"> Error <%= code%></h1>
+          <hr>
+          <h5 class="mb-0"> <%=message%></h5>
+        </div>
       </div>
     </div>
     <!-- Bootstrap JS -->

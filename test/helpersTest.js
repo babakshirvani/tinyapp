@@ -1,5 +1,4 @@
 const { assert } = require('chai');
-
 const { getUserByEmail } = require('../helpers.js');
 
 const testUsers = {
@@ -24,6 +23,6 @@ describe('getUserByEmail', function() {
   it('should return undefined for non-existent email.', function() {
     const user = getUserByEmail("what@example.com", testUsers);
     const expectedOutput = undefined;
-    assert.deepEqual(user, expectedOutput)
+    assert.deepEqual(user, expectedOutput);
   });
 });

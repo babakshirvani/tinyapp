@@ -1,6 +1,4 @@
 
-
-
 const getUserByEmail = function(email, users) {
   for (const id in users) {
     if (email === users[id].email) {
