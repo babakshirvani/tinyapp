@@ -12,13 +12,13 @@ TinyApp is a `full stack` web application built with `Node` and `Express` that *
 
 !["createURL"](https://github.com/babakshirvani/tinyapp/blob/master/docs/createURL.gif)
 
-### Edit / Delete URL
+### Edit URL
 
-!["editDelete"](https://github.com/babakshirvani/tinyapp/blob/master/docs/edit.gif)
+!["edit"](https://github.com/babakshirvani/tinyapp/blob/master/docs/edit.gif)
 
-### Analytics
+### Delete URL
 
-!["analytics"](https://github.com/babakshirvani/tinyapp/blob/master/docs/delete.gif)
+!["Delete"](https://github.com/babakshirvani/tinyapp/blob/master/docs/delete.gif)
 
 ## General Features
 
