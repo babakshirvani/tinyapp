@@ -160,7 +160,7 @@ app.post("/urls/:shortURL", (req, res) => {
   }
   const updateURL = req.body.updateURL;
   urlDatabase[shortURL].longURL = updateURL;
-  res.redirect(`/urls/${req.params.shortURL}`);
+  res.redirect(`/urls`);
 });
 
 //*** POST urls/:id/delete ***
@@ -220,7 +220,7 @@ app.post("/login", (req, res) => {
     res.render('error', errorMsg);
     return;
   }
-  if (userExist === undefined) {
+  if (!userExist) {
     const errorMsg = { message: 'Email not found, Please try again or Register.', code: 403 };
     res.status(403);
     res.render('error', errorMsg);
